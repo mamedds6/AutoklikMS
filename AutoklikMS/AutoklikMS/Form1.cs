@@ -122,41 +122,45 @@ namespace AutoklikMS
         {
             InitializeComponent();
             listInit();
-
         }
+    
 
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (Control.IsKeyLocked(Keys.CapsLock))
+            for (int j = 0; j<3; j++)
             {
-                int i = 0;
-                mouseMoveAndClick(positions[i]);    //licznik jakby bylo wiecej .heh
-                i++;
-                Thread.Sleep(sleepPageLoading);
-                mouseMoveAndClick(positions[i]);
-                i++;
-                pressEnd();
-                pressPageUp();
-                pressPageUp();
-                while (i < positions.Count - 1)
+                if (Control.IsKeyLocked(Keys.CapsLock)) //i<1000
                 {
+                    int i = 0;
                     mouseMoveAndClick(positions[i]);
                     i++;
+                    Thread.Sleep(sleepPageLoading);
+                    mouseMoveAndClick(positions[i]);
+                    i++;
+                    pressEnd();
+                    pressPageUp();
+                    pressPageUp();
+                    while (i < positions.Count - 1)
+                    {
+                        mouseMoveAndClick(positions[i]);
+                        i++;
+                    }
+
+                    pressEnd();
+                    Thread.Sleep(sleep2000);
+                    mouseMoveAndClick(positions[i]);
+
+                    licz += 1;
+                    button2.Text = licz.ToString();
+
+                    
                 }
 
-                pressEnd();
-                Thread.Sleep(sleep2000);
-                mouseMoveAndClick(positions[i]);
-
-                licz += 1;
-                button2.Text = licz.ToString();
-
                 if (Control.IsKeyLocked(Keys.CapsLock))
-                    this.TopMost = true;
-                else
                     Thread.Sleep(sleepPageLoading);
-
+                else
+                    this.TopMost = true;
             }
         }
 
