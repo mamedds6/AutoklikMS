@@ -57,12 +57,14 @@ namespace AutoklikMS
         Point pos0; // = new Point(0, 0);
         Point pWyborPierwszegoKolpaka = new Point(400, 715);
         Point pSzablonKlikNaSrodku = new Point(900, 500);
-        Point pSzablonGwarancja = new Point(xInSzablon, 665 + smth);
-        Point pSzablonGwarancjaWybor = new Point(xInSzablon, 715 + smth);
-        Point pSzablonReklamacje = new Point(xInSzablon, 565 + smth);
-        Point pSzablonReklamacjeWybor = new Point(xInSzablon, 615 + smth);
-        Point pSzablonZwroty = new Point(xInSzablon, 470 + smth);
-        Point pSzablonZwrotyWybor = new Point(xInSzablon, 520 + smth);
+        Point pSzablonPrezent = new Point(xInSzablon, 745); // + smth ? a po co to...
+        Point pSzablonPrezentWybor = new Point(xInSzablon, 715); 
+        Point pSzablonGwarancja = new Point(xInSzablon, 650 + smth);
+        Point pSzablonGwarancjaWybor = new Point(xInSzablon, 700 + smth);
+        Point pSzablonReklamacje = new Point(xInSzablon, 550 + smth);
+        Point pSzablonReklamacjeWybor = new Point(xInSzablon, 600 + smth);
+        Point pSzablonZwroty = new Point(xInSzablon, 455 + smth);
+        Point pSzablonZwrotyWybor = new Point(xInSzablon, 505 + smth);
         Point pSzablonKlikNaSrodku2 = new Point(900, 500);
         Point pSzablonZakoncz = new Point(678, 569);
 
@@ -103,6 +105,8 @@ namespace AutoklikMS
         {
             positions.Add(pWyborPierwszegoKolpaka);
             positions.Add(pSzablonKlikNaSrodku);
+            positions.Add(pSzablonPrezent);
+            positions.Add(pSzablonPrezentWybor);
             positions.Add(pSzablonGwarancja);
             positions.Add(pSzablonGwarancjaWybor);
             positions.Add(pSzablonReklamacje);
@@ -125,7 +129,7 @@ namespace AutoklikMS
             this.StartPosition = FormStartPosition.Manual;   //position set in form1 design  
             button1.Visible = false;    //not needed atm
 
-            timer1.Interval = 300;
+            //timer1.Interval = 300;
             timer1.Start();
             
             pos0 = new Point(0, 0);
@@ -136,6 +140,10 @@ namespace AutoklikMS
             pos0.Y = Cursor.Position.Y;
             pos0.X = Cursor.Position.X;
             label2.Text = pos0.X.ToString() + " " + pos0.Y.ToString();
+            if (!Control.IsKeyLocked(Keys.CapsLock))
+                button2.Enabled = false;
+            else
+                button2.Enabled = true;
         }
 
         private void button1_Click(object sender, EventArgs e) { }
@@ -179,7 +187,7 @@ namespace AutoklikMS
             button2.BackColor = Color.LightGreen;
             button2.Enabled = false;
             numericUpDown1.Enabled = false;
-            textBox1.Enabled = textBox2.Enabled = textBox3.Enabled = false;
+            //!!!!! //textBox1.Enabled = textBox2.Enabled = textBox3.Enabled = false;
 
             sleepInput = int.Parse(textBox1.Text);
             sleepMid = int.Parse(textBox2.Text);
@@ -217,6 +225,10 @@ namespace AutoklikMS
                     return;
                 }
                 Thread.Sleep(sleepPageLoading); //sleep needed because of szablon->mainpage
+
+                sleepInput = int.Parse(textBox1.Text);
+                sleepMid = int.Parse(textBox2.Text);
+                sleepPageLoading = int.Parse(textBox3.Text);
             }
         }
 
@@ -233,13 +245,13 @@ namespace AutoklikMS
                 if (!Control.IsKeyLocked(Keys.CapsLock))
                 {
                     backgroundWorker1.CancelAsync();
-                    button1.Invoke(new Action(() => button1.Enabled = false));
-                    button2.Invoke(new Action(() => button2.Enabled = false));
+                    //button1.Invoke(new Action(() => button1.Enabled = false));
+                    //button2.Invoke(new Action(() => button2.Enabled = false));
                 }
                 else
                 {
-                    button1.Invoke(new Action(() => button1.Enabled = true));
-                    button2.Invoke(new Action(() => button2.Enabled = true));
+                    //button1.Invoke(new Action(() => button1.Enabled = true));
+                    //button2.Invoke(new Action(() => button2.Enabled = true));
                 }
 
                 Thread.Sleep(200);
