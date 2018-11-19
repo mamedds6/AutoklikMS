@@ -53,6 +53,8 @@ namespace AutoklikMS
 
         static int xInSzablon = 250;
         static int smth = 0;
+
+        Point pos0; // = new Point(0, 0);
         Point pWyborPierwszegoKolpaka = new Point(400, 715);
         Point pSzablonKlikNaSrodku = new Point(900, 500);
         Point pSzablonGwarancja = new Point(xInSzablon, 665 + smth);
@@ -122,6 +124,18 @@ namespace AutoklikMS
 
             this.StartPosition = FormStartPosition.Manual;   //position set in form1 design  
             button1.Visible = false;    //not needed atm
+
+            timer1.Interval = 300;
+            timer1.Start();
+            
+            pos0 = new Point(0, 0);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            pos0.Y = Cursor.Position.Y;
+            pos0.X = Cursor.Position.X;
+            label2.Text = pos0.X.ToString() + " " + pos0.Y.ToString();
         }
 
         private void button1_Click(object sender, EventArgs e) { }
